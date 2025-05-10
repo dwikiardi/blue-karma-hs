@@ -14,7 +14,7 @@
                         <div class="page-title-box">
                             <h4 class="page-title">Dashboard</h4>
                             <ol class="breadcrumb">
-                                <li class="breadcrumb-item active">MyTIK - User Manager Hotspot</li>
+                                <li class="breadcrumb-item active">Gapura - User Manager Hotspot</li>
                             </ol>
                         </div>
                     </div>
@@ -54,7 +54,7 @@
                         <div class="card-body">
                             <div class="row align-items-center p-1">
                                 <div class="col-lg-12">
-                                    <h5 class="font-16">Total Voucher</h5>
+                                    <h5 class="font-16">Total User</h5>
                                     <h4 class="text-info pt-1 mb-0" id="voucher"></h4>
                                 </div>
                             </div>
@@ -78,7 +78,7 @@
             </div>
 
             <div class="row">
-                <div class="col-xl-8">
+                <div class="col-xl-12">
                     <div class="card">
                         <div class="card-body">
                             <h4 class="mt-0 header-title mb-4">Daftar Pengguna Hotspot <sup class="badge badge-secondary"><small> Aktif</small></sup></h4>
@@ -109,7 +109,7 @@
                     </div>
                 </div>
 
-                <div class="col-xl-4">
+                {{-- <div class="col-xl-4">
                     <div class="card">
                         <div class="card-body">
                         <h4 class="mt-0 header-title mb-4">GitHub Information</h4>
@@ -117,7 +117,7 @@
                             <img src="https://github-readme-stats.vercel.app/api/top-langs/?username=archytech99&langs_count=8&theme=tokyonight&layout=compact" class="mt-3" alt="Skills" width="100%">
                         </div>
                     </div>
-                </div>
+                </div> --}}
             </div>
         </div>
     </div>

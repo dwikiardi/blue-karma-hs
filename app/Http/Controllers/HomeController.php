@@ -6,6 +6,7 @@ use App\Pear2\Net\RouterOS\DataFlowException;
 use App\Pear2\Net\RouterOS\SocketException;
 use App\Session;
 use App\User;
+use App\Tamu;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Symfony\Component\ErrorHandler\Error\FatalError;
@@ -191,6 +192,42 @@ class HomeController extends Controller
         }
 
         return view('session.index');
+    }
+
+    public function email(){
+
+        return view('email.index');
+    }
+
+    public function showEmail()
+    {
+        // Ambil data tamu yang hanya terkait dengan user yang sedang login
+        $data = Tamu::where('user_id', Auth::id())->get();
+
+        return response()->json(['data' => $data]);
+    }
+
+
+    public function deleteEmail(Request $request)
+    {
+        if ($request->input('del_id')) {
+            try {
+                // Cari data tamu berdasarkan ID
+                $tamu = Tamu::find($request->input('del_id'));
+
+                // Jika data ditemukan, hapus
+                if ($tamu) {
+                    $tamu->delete();
+                    return json_swal('Email berhasil dihapus', 'Berhasil!', 'success');
+                } else {
+                    return json_swal('Email tidak ditemukan', 'Gagal!', 'error', false);
+                }
+            } catch (\Exception $exception) {
+                return json_swal($exception->getMessage(), 'Internal Server Error', 'error', false);
+            }
+        }
+
+        return response()->json(['message' => 'ID tidak ditemukan'], 400);
     }
 
     public function router(Request $request)

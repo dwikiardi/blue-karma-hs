@@ -45,6 +45,10 @@ Route::middleware('auth')->group(function () {
 
     Route::post('/qr-code', 'HomeController@qrcode')->name('qrcode');
     Route::post('/logout', 'LoginController@logout')->name('logout');
+
+    Route::get('/email', 'HomeController@email')->name('email');
+    Route::get('/email/show', 'HomeController@showEmail')->name('email.show');
+    Route::delete('/email', 'HomeController@deleteEmail');
 });
 /* Auth Route */
 

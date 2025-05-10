@@ -10,17 +10,22 @@
                     <li class="menu-title">Hotspot</li>
                     <li>
                         <a href="{{ route('users') }}" class="waves-effect">
-                            <i class="dripicons-user-group"></i><span> Voucher </span>
+                            <i class="dripicons-user-group"></i><span> User </span>
                         </a>
                     </li>
                     <li>
                         <a href="{{ route('packet') }}" class="waves-effect">
-                            <i class="dripicons-briefcase"></i><span> Packet </span>
+                            <i class="dripicons-briefcase"></i><span> Profile </span>
                         </a>
                     </li>
                     <li>
                         <a href="{{ route('client') }}" class="waves-effect">
                             <i class="dripicons-graph-bar"></i><span> Hotspot Client </span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ route('email') }}" class="waves-effect">
+                            <i class="dripicons-document"></i><span> Email Client </span>
                         </a>
                     </li>
 

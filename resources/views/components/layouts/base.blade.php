@@ -31,8 +31,8 @@
         <div class="topbar">
             <div class="topbar-left">
                 <a href="{{ route('index') }}" class="logo">
-                    <img src="{{ asset('assets/images/logo-light.png') }}" class="logo-lg" alt="" height="22">
-                    <img src="{{ asset('assets/images/logo-sm.png') }}" class="logo-sm" alt="" height="24">
+                    <img src="{{ asset('assets/images/logo-light.png') }}" class="logo-lg" alt="" height="60">
+                    <img src="{{ asset('assets/images/logo-sm.png') }}" class="logo-sm" alt="" height="60">
                 </a>
             </div>
 

@@ -10,8 +10,8 @@
                     <div class="card card-pages shadow-none mt-4">
                         <div class="card-body">
                             <div class="text-center mt-0 mb-3">
-                                <img src="{{ asset('assets/images/logo-dark.png') }}" class="mt-3" alt="" height="26">
-                                <p class="text-muted w-75 mx-auto mb-4 mt-4">Silahkan Login untuk bisa akses Panel Admin Dashboard.</p>
+                                <img src="{{ asset('assets/images/logo-dark.png') }}" class="mt-3" alt="" height="100">
+                                <p class="text-muted w-75 mx-auto mb-4 mt-4">Silahkan Login untuk bisa akses Panel Gapura Admin Dashboard.</p>
                             </div>
 
                             <form id="formLogin" class="form-horizontal mt-4">

@@ -21,7 +21,7 @@ function init_count() {
         success: function( response ) {
             // $.unblockUI();
             $('#pengguna').html(response.data.jml_user_active + " Pengguna");
-            $('#client').html(response.data.jml_hosts + " Klien");
+            $('#client').html(response.data.jml_hosts + " Client");
             $('#voucher').html(response.data.jml_user + " Voucher");
             $('#packet').html(response.data.jml_user_profile + " Packet");
         },
