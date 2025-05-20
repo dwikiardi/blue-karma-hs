@@ -203,7 +203,7 @@ if (!class_exists('\App\Pear2\Autoload', false)) {
                 // instance so we can update it if necessary
                 self::$mapfile = $mapfile;
 
-                if (is_file($mapfile)) {
+                if (!empty($filename) && is_file($filename)) {
                     $map = include $mapfile;
                     if (is_array($map)) {
                         // mapfile contains a valid map, so we'll keep it
