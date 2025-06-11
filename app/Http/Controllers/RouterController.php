@@ -75,11 +75,7 @@ class RouterController
                 );
 
                 $return[] = [
-                    'id' => [
-                        'id' => $item->getProperty('.id'),
-                        'mac' => $item->getProperty('mac-address'),
-                        'comment' => $item->getProperty('comment')
-                    ],
+                    'id' => $item->getProperty('.id'),
                     'server' => $item->getProperty('server'),
                     'user' => $item->getProperty('user'),
                     'address' => $item->getProperty('address'),
@@ -90,14 +86,10 @@ class RouterController
                     'keepalive' => $item->getProperty('keepalive-timeout'),
                     'leased' => $leased,
                     'comment' => $item->getProperty('comment'),
-                    'bytes' => [
-                        'in' => $item->getProperty('bytes-in'),
-                        'out' => $item->getProperty('bytes-out')
-                    ],
-                    'packets' => [
-                        'in' => $item->getProperty('packets-in'),
-                        'out' => $item->getProperty('packets-out')
-                    ]
+                    'bytes_in' => $item->getProperty('bytes-in'),
+                    'bytes_out' => $item->getProperty('bytes-out'),
+                    'packets_in' => $item->getProperty('packets-in'),
+                    'packets_out' => $item->getProperty('packets-out'),
                 ];
             // }
         }
@@ -322,62 +314,65 @@ class RouterController
         return $return;
     }
 
-    public function get_client()
-    {
-        $return = [];
-        $this->utils->setMenu('/ip hotspot host');
+public function get_client()
+{
+    $return = [];
+    $this->utils->setMenu('/ip hotspot host');
 
-        foreach ($this->utils->getAll() as $item) {
-            /*if ($item->getProperty('server') != env('ROUTER_HOTSPOT_SERVER')) {
-                continue;
-            } else*/if ($item->getProperty('bypassed') == 'true') {
-                continue;
-            } else {
-                if ($item->getProperty('comment')) {
-                    $comment = $item->getProperty('comment');
-                } else {
-                    $this->utils->setMenu('/ip dhcp-server lease');
-                    $comment = $this->utils->get(
-                        $this->utils->find(
-                            Query::where('mac-address',
-                                $item->getProperty('mac-address')
-                            )
-                        ), 'host-name'
-                    );
+    foreach ($this->utils->getAll() as $item) {
+        if ($item->getProperty('bypassed') == 'true') {
+            continue;
+        }
+
+        $mac = $item->getProperty('mac-address');
+        $comment = $item->getProperty('comment');
+
+        // Jika comment kosong, coba ambil dari DHCP lease
+        if (!$comment) {
+            $this->utils->setMenu('/ip dhcp-server lease');
+            $leaseData = $this->utils->find(Query::where('mac-address', $mac));
+
+            if ($leaseData) {
+                try {
+                    $comment = $this->utils->get($leaseData, 'host-name');
+                } catch (\Exception $e) {
+                    $comment = null;
+                    logger()->warning("Gagal ambil host-name DHCP lease untuk MAC {$mac}: " . $e->getMessage());
                 }
-
-                $return[] = [
-                    'id' => [
-                        'id' => $item->getProperty('.id'),
-                        'mac' => $item->getProperty('mac-address'),
-                        'comment' => $item->getProperty('comment')
-                    ],
-                    'mac' => $item->getProperty('mac-address'),
-                    'address' => $item->getProperty('address'),
-                    'to-address' => $item->getProperty('to-address'),
-                    'server' => $item->getProperty('server'),
-                    'uptime' => $item->getProperty('uptime'),
-                    'idle-time' => $item->getProperty('idle-time'),
-                    'keepalive-timeout' => $item->getProperty('keepalive-timeout'),
-                    'host-dead-time' => $item->getProperty('host-dead-time'),
-                    'found-by' => $item->getProperty('found-by'),
-                    'authorized' => $item->getProperty('authorized'),
-                    'bypassed' => $item->getProperty('bypassed'),
-                    'comment' => $comment,
-                    'bytes' => [
-                        'in' => $item->getProperty('bytes-in'),
-                        'out' => $item->getProperty('bytes-out')
-                    ],
-                    'packets' => [
-                        'in' => $item->getProperty('packets-in'),
-                        'out' => $item->getProperty('packets-out')
-                    ]
-                ];
             }
         }
 
-        return $return;
+        $return[] = [
+            'id' => [
+                'id' => $item->getProperty('.id'),
+                'mac' => $mac,
+                'comment' => $item->getProperty('comment')
+            ],
+            'mac' => $mac,
+            'address' => $item->getProperty('address'),
+            'to-address' => $item->getProperty('to-address'),
+            'server' => $item->getProperty('server'),
+            'uptime' => $item->getProperty('uptime'),
+            'idle-time' => $item->getProperty('idle-time'),
+            'keepalive-timeout' => $item->getProperty('keepalive-timeout'),
+            'host-dead-time' => $item->getProperty('host-dead-time'),
+            'found-by' => $item->getProperty('found-by'),
+            'authorized' => $item->getProperty('authorized'),
+            'bypassed' => $item->getProperty('bypassed'),
+            'comment' => $comment,
+            'bytes' => [
+                'in' => $item->getProperty('bytes-in'),
+                'out' => $item->getProperty('bytes-out')
+            ],
+            'packets' => [
+                'in' => $item->getProperty('packets-in'),
+                'out' => $item->getProperty('packets-out')
+            ]
+        ];
     }
+
+    return $return;
+}
 
     public function del_client($id, $name)
     {
